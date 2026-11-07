@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:flutter/foundation.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:mqtt_client/mqtt_browser_client.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 
@@ -18,7 +19,7 @@ class MqttService extends ChangeNotifier {
   MqttService._internal();
   static final MqttService instance = MqttService._internal();
 
-  static const String broker = 'test.mosquitto.org';
+  static const String broker = 'broker.hivemq.com';;
   static const int port = 1883;
   static const List<String> topics = [
     'ruth/iot/temperature',
@@ -28,7 +29,7 @@ class MqttService extends ChangeNotifier {
     'ruth/iot/gps',
   ];
 
-  MqttServerClient? _client;
+  MqttClient? _client;
   MqttConnectionState connectionState = MqttConnectionState.disconnected;
 
   String? temperature;
@@ -41,11 +42,20 @@ class MqttService extends ChangeNotifier {
   final List<LogEntry> log = [];
   String? pairingCode;
 
+  MqttClient _buildClient(String clientId) {
+  if (kIsWeb) {
+    final client = MqttBrowserClient('ws://$broker/mqtt', clientId);
+    client.port = 8000;
+    return client;
+  }
+  return MqttServerClient.withPort(broker, clientId, port);
+}
+
   Future<void> connect(String code) async {
     pairingCode = code;
 
     final clientId = 'flutter_bracelet_${Random().nextInt(100000)}';
-    _client = MqttServerClient.withPort(broker, clientId, port);
+    _client = _buildClient(clientId);
     _client!.keepAlivePeriod = 30;
     _client!.autoReconnect = true;
     _client!.onConnected = _onConnected;
