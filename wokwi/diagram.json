@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "author": "Uri Shaked",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": -28.8, "left": -4.76, "attrs": {} },
+    { "type": "wokwi-dht22", "id": "dht1", "top": -18.9, "left": -72.6, "attrs": {} },
+    { "type": "wokwi-led", "id": "led1", "top": -42, "left": 138.2, "attrs": { "color": "red" } },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn1",
+      "top": 6.2,
+      "left": 182.4,
+      "attrs": { "color": "green", "xray": "1" }
+    }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "dht1:GND", "esp:GND.1", "black", [ "v28.8", "h28.8" ] ],
+    [ "dht1:VCC", "esp:3V3", "red", [ "v19.2", "h48", "v-115.2" ] ],
+    [ "dht1:SDA", "esp:14", "green", [ "v9.6", "h48.1" ] ],
+    [ "led1:C", "esp:GND.2", "black", [ "v0", "h-57.2" ] ],
+    [ "led1:A", "esp:5", "red", [ "v86.4", "h-67.2" ] ],
+    [ "led1:C", "btn1:1.l", "black", [ "v19.2", "h29.2" ] ],
+    [ "btn1:2.l", "esp:16", "red", [ "h0", "v67.4" ] ]
+  ],
+  "dependencies": {}
+}

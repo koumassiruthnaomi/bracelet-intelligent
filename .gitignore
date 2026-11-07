@@ -1,0 +1,9 @@
+# Flutter
+flutter/.dart_tool/
+flutter/build/
+flutter/.idea/
+flutter/**/local.properties
+flutter/android/.gradle/
+flutter/android/app/build/
+flutter/windows/flutter/ephemeral/
+*.iml
