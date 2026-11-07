@@ -27,8 +27,8 @@ ESP32 (Wokwi)                          Application Flutter
 | `ruth/iot/temperature` | Température lue par le DHT22 | Idem |
 | `ruth/iot/humidity` | Humidité lue par le DHT22 | Idem |
 | `ruth/iot/alerte` | Message d'alerte lors d'un appui sur le bouton | Déclenché par le capteur anti-arrachement |
-| `ruth/iot/camera` | Message fixe (pas de photo) | Photo de la personne prise par l'ESP32-CAM |
-| `ruth/iot/gps` | Message fixe (pas de position) | Position fournie par le module GPS |
+| `ruth/iot/camera` | Message fixe de simulation | Photo de la personne prise par l'ESP32-CAM |
+| `ruth/iot/gps` | Message fixe de simulation | Position fournie par le module GPS |
 
 ## Lancer la simulation
 
